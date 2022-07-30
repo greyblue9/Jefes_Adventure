@@ -152,16 +152,16 @@ class Player(NPC):
             self.state = "jump"
         elif self.direction.y > 1:
             self.state = "fall"
-        else:
-            if self.direction.x != 0:
-                self.state = "run"
+        elif self.direction.x == 0:
+            if self.digging:
+                self.state = "dig"
+            elif self.barking:
+                self.state = "bark"
             else:
-                if self.digging:
-                    self.state = "dig"
-                elif self.barking:
-                    self.state = "bark"
-                else:
-                    self.state = "idle"
+                self.state = "idle"
+
+        else:
+            self.state = "run"
 
     def apply_gravity(self):
         self.direction.y += self.gravity
@@ -197,9 +197,7 @@ class Player(NPC):
 
     def wave_value(self):
         val = sin(pg.time.get_ticks())
-        if val >= 0:
-            return 255
-        return 0
+        return 255 if val >= 0 else 0
 
     def update(self, display_surface):
         self.get_input()

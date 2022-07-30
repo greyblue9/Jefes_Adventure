@@ -46,11 +46,10 @@ class BoneGetEffect(pg.sprite.Sprite):
     def update(self, x_shift):
         self.rect.x += x_shift
         self.index += self.animation_speed
-        if round(self.index, 3).is_integer():
-            if self.index < 50:
-                self.animate()
-                if not self.counted:
-                    self.player.bones += 1
-                    self.counted = True
+        if round(self.index, 3).is_integer() and self.index < 50:
+            self.animate()
+            if not self.counted:
+                self.player.bones += 1
+                self.counted = True
         if self.index > self.killtime:
             self.kill()

@@ -133,10 +133,7 @@ class BoneIndicator(Indicator):
 
     def draw(self, display_screen):
         super().draw(display_screen)
-        if self.num_bones >= 10:
-            color = "#11d113"
-        else:
-            color = "#d68232"
+        color = "#11d113" if self.num_bones >= 10 else "#d68232"
         bone_amount_surface = self.font.render(str(self.num_bones), True, color)
         bone_amount_rect = bone_amount_surface.get_rect(
             topleft=self.indicator.rect.topright

@@ -84,7 +84,7 @@ class MainGame(GameState):
                 if value != -1:
                     x, y = [(col_index - 4) * TILE_SIZE, row_index * TILE_SIZE]
 
-                    if tile_type == "ground" or tile_type == "player_barrier":
+                    if tile_type in ["ground", "player_barrier"]:
                         ground_tiles = import_cut_graphic(self.imgs.ground["ground"])
                         tile_surface = ground_tiles[value]
                         if value < 2:
@@ -272,10 +272,9 @@ class MainGame(GameState):
             player.on_ground = False
 
     def check_bones(self):
-        bones_hit = len(
+        if bones_hit := len(
             pg.sprite.spritecollide(self.player.sprite, self.bone_sprites, True)
-        )
-        if bones_hit:
+        ):
             SFX.play_sfx("gulp")
             self.player.sprite.bones += bones_hit
 
@@ -302,8 +301,7 @@ class MainGame(GameState):
                 enemy.kill()
 
     def bad_collision(self):
-        damage = self.player.sprite.get_damage()
-        if damage:
+        if damage := self.player.sprite.get_damage():
             self.current_health += damage
 
     def check_fail(self):
@@ -317,19 +315,20 @@ class MainGame(GameState):
             self.is_over = True
 
     def check_win(self):
-        if self.goal.sprite.is_open:
-            if pg.sprite.spritecollide(self.player.sprite, self.goal, False):
-                max_stage, max_level = self.opened_level
-                with open("../assets/save.json", "r+") as f:
-                    save_data = json.load(f)
-                    f.seek(0)
-                    if (
-                        save_data["max_stage"] == self.stage
-                        and save_data["max_level"] == self.level
-                    ):
-                        json.dump({"max_stage": max_stage, "max_level": max_level}, f)
-                self.override_state = gs.LevelMenu
-                self.is_over = True 
+        if self.goal.sprite.is_open and pg.sprite.spritecollide(
+            self.player.sprite, self.goal, False
+        ):
+            max_stage, max_level = self.opened_level
+            with open("../assets/save.json", "r+") as f:
+                save_data = json.load(f)
+                f.seek(0)
+                if (
+                    save_data["max_stage"] == self.stage
+                    and save_data["max_level"] == self.level
+                ):
+                    json.dump({"max_stage": max_stage, "max_level": max_level}, f)
+            self.override_state = gs.LevelMenu
+            self.is_over = True 
 
     def update(self, event_info):
         self.scroll_x()

@@ -10,7 +10,7 @@ def import_folder(path, file_type):
         # remove mac's hidden file
         if file == ".DS_Store":
             continue
-        full_path = path + "/" + file
+        full_path = f"{path}/{file}"
         if file_type == "image":
             content = pg.image.load(full_path).convert_alpha()
         elif file_type == "music":
@@ -33,7 +33,7 @@ def import_sfx(path):
         files.sort()
 
         for index, item in enumerate(files):
-            full_path = path + "/" + item
+            full_path = f"{path}/{item}"
             name = item[:-4]
             sound = pg.mixer.Sound(full_path)
 
@@ -45,8 +45,7 @@ def import_csv(path):
     sprite_map = []
     with open(path) as csv_map:
         level = reader(csv_map, delimiter=",")
-        for row in level:
-            sprite_map.append(list(map(int, row)))
+        sprite_map.extend(list(map(int, row)) for row in level)
     return sprite_map
 
 
