@@ -1,0 +1,58 @@
+{
+  "-1": {
+    "node_pos": [
+      11,
+      322
+    ],
+    "unlock": 1,
+    "graphics": "-1"
+  },
+  "0": {
+    "node_pos": [
+      50,
+      184
+    ],
+    "unlock": 1,
+    "graphics": "0"
+  },
+  "1": {
+    "node_pos": [
+      169,
+      11
+    ],
+    "unlock": 2,
+    "graphics": "1"
+  },
+  "2": {
+    "node_pos": [
+      393,
+      102
+    ],
+    "unlock": 3,
+    "graphics": "2"
+  },
+  "3": {
+    "node_pos": [
+      617,
+      11
+    ],
+    "unlock": 4,
+    "graphics": "3"
+  },
+  "4": {
+    "node_pos": [
+      841,
+      102
+    ],
+    "unlock": 5,
+    "graphics": "4"
+  },
+  "5": {
+    "node_pos": [
+      1065,
+      11
+    ],
+    "unlock": 5,
+    "graphics": "5"
+  }
+}
